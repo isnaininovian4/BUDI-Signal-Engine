@@ -14,7 +14,17 @@ def load_ledger(path=LEDGER_PATH):
     path = Path(path)
     if not path.exists():
         return pd.DataFrame(columns=COLUMNS)
-    df = pd.read_csv(path)
+    df = pd.read_csv(
+    path,
+    dtype={
+        "Trade_ID": "string",
+        "Ticker": "string",
+        "Entry_Date": "string",
+        "Status": "string",
+        "Exit_Date": "string",
+        "Exit_Reason": "string",
+    },
+)
     for col in COLUMNS:
         if col not in df.columns:
             df[col] = pd.NA
